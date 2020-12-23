@@ -1,53 +1,56 @@
-﻿<Window x:Class="GraphSharp.Sample.TestWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Sample="clr-namespace:GraphSharp.Sample"
-        xmlns:isom="clr-namespace:GraphSharp.Algorithms.Layout.Simple.FDP;assembly=GraphSharp"
-        xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
-        Title="TestWindow"
-        Height="600"
-        Width="600">
+﻿<Window
+    x:Class="GraphSharp.Sample.TestWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Sample="clr-namespace:GraphSharp.Sample"
+    xmlns:isom="clr-namespace:GraphSharp.Algorithms.Layout.Simple.FDP;assembly=GraphSharp"
+    xmlns:g="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
+    xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
+    Title="TestWindow"
+    Width="600"
+    Height="600">
     <DockPanel>
 
-        <WrapPanel Orientation="Horizontal"
-                   DockPanel.Dock="Top">
+        <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <WrapPanel.Resources>
                 <Style TargetType="{x:Type Button}">
-                    <Setter Property="Margin"
-                            Value="0,0,5,0" />
-                    <Setter Property="Padding"
-                            Value="5" />
+                    <Setter Property="Margin" Value="0,0,5,0" />
+                    <Setter Property="Padding" Value="5" />
                 </Style>
             </WrapPanel.Resources>
-            <Button Content="Generate new graph"
-                    Click="Button_Click" />
-            <Button Content="Add vertex"
-                    Click="AddVertex_Click" />
-            <Button Content="Remove vertex"
-                    Click="RemoveVertex_Click" />
-            <Button Content="Add edge"
-                    Click="AddEdge_Click" />
-            <Button Content="Remove edge"
-                    Click="RemoveEdge_Click" />
-            <Button Content="Relayout"
-                    Click="Button_Click_1" />
+            <Button Click="Button_Click" Content="Generate new graph" />
+            <Button Click="AddVertex_Click" Content="Add vertex" />
+            <Button Click="RemoveVertex_Click" Content="Remove vertex" />
+            <Button Click="AddEdge_Click" Content="Add edge" />
+            <Button Click="RemoveEdge_Click" Content="Remove edge" />
+            <Button Click="Button_Click_1" Content="Relayout" />
         </WrapPanel>
 
-        <ProgressBar Value="{Binding ElementName=layout,Path=LayoutStatusPercent,Mode=OneWay}" 
-                     Height="30"
-                     DockPanel.Dock="Bottom"/>
+        <ProgressBar
+            Height="30"
+            DockPanel.Dock="Bottom"
+            Value="{Binding ElementName=layout, Path=LayoutStatusPercent, Mode=OneWay}" />
 
         <zoom:ZoomControl>
-            <Sample:MyGraphLayout x:Name="layout"
-                                  LayoutAlgorithmType="ISOM"
-                                  OverlapRemovalAlgorithmType="FSA"
-                                  Graph="{Binding}"
-                                  AsyncCompute="true"
-                                  ShowAllStates="false"
-                                  HighlightAlgorithmType="Simple">
+            <Sample:MyGraphLayout
+                x:Name="layout"
+                AsyncCompute="true"
+                Graph="{Binding}"
+                HighlightAlgorithmType="Simple"
+                LayoutAlgorithmType="ISOM"
+                OverlapRemovalAlgorithmType="FSA"
+                ShowAllStates="false">
+                <Sample:MyGraphLayout.Resources>
+                    <Style TargetType="g:EdgeControl">
+                        <Setter Property="StrokeThickness" Value="1" />
+                        <Setter Property="DashedLine" Value="2 1" />
+                        <Setter Property="Foreground" Value="GreenYellow" />
+                        <Setter Property="ToolTip" Value="test" />
+                    </Style>
+                </Sample:MyGraphLayout.Resources>
                 <Sample:MyGraphLayout.LayoutParameters>
-                    <isom:ISOMLayoutParameters Width="1200"
-                                               Height="1200" />
+
+                    <isom:ISOMLayoutParameters Width="1200" Height="1200" />
                 </Sample:MyGraphLayout.LayoutParameters>
             </Sample:MyGraphLayout>
         </zoom:ZoomControl>
